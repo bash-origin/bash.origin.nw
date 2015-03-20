@@ -1,7 +1,7 @@
 bash.origin.nw
 ==============
 
-A plugin for [Bash.Origin](https://github.com/bash-origin/bash.origin) that installs [NW.js](http://nwjs.io/).
+A plugin for [Bash.Origin](https://github.com/bash-origin/bash.origin) that can run [NW.js](http://nwjs.io/) apps. All missing dependencies will be installed on demand.
 
 
 Usage
