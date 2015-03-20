@@ -1,0 +1,37 @@
+#!/bin/bash
+# Source https://github.com/cadorn/bash.origin
+. "$HOME/.bash.origin"
+function init {
+	eval BO_SELF_BASH_SOURCE="$BO_READ_SELF_BASH_SOURCE"
+	BO_deriveSelfDir ___TMP___ "$BO_SELF_BASH_SOURCE"
+	local __BO_DIR__="$___TMP___"
+
+	function ensureDownloaded {
+		BO_ensureInSystemCache DOWNLOADED_PATH \
+			"dl.nwjs.io" \
+			"0.12.0" \
+			"archive-osx-x64.zip" \
+			"http://dl.nwjs.io/v0.12.0/nwjs-v0.12.0-osx-x64.zip"
+
+		# TODO: Relocate extraction into `bash.origin` as it is common.
+		local EXTRACTED_PATH=`echo "$DOWNLOADED_PATH" | sed 's/\.zip$//g'`
+		if [ ! -d "$EXTRACTED_PATH" ]; then			
+			pushd "$(dirname $DOWNLOADED_PATH)"
+				unzip -d "$(basename $EXTRACTED_PATH)" "$(basename $DOWNLOADED_PATH)"
+				local RESOLVED_PATH=("${EXTRACTED_PATH}"/*)
+				mv -f "${RESOLVED_PATH}"/* "$(basename $EXTRACTED_PATH)"
+				rm -Rf "$RESOLVED_PATH"
+			popd
+		fi
+		BO_setResult "$1" "$EXTRACTED_PATH"
+	}
+
+	function run {
+		local NW_BASE_PATH
+		ensureDownloaded NW_BASE_PATH
+		pushd "$NW_BASE_PATH"
+			nwjs.app/Contents/MacOS/nwjs $@
+		popd
+	}
+}
+init $@
