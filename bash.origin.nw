@@ -12,17 +12,7 @@ function init {
 			"0.12.0" \
 			"archive-osx-x64.zip" \
 			"http://dl.nwjs.io/v0.12.0/nwjs-v0.12.0-osx-x64.zip"
-
-		# TODO: Relocate extraction into `bash.origin` as it is common.
-		local EXTRACTED_PATH=`echo "$DOWNLOADED_PATH" | sed 's/\.zip$//g'`
-		if [ ! -d "$EXTRACTED_PATH" ]; then			
-			pushd "$(dirname $DOWNLOADED_PATH)"
-				unzip -d "$(basename $EXTRACTED_PATH)" "$(basename $DOWNLOADED_PATH)"
-				local RESOLVED_PATH=("${EXTRACTED_PATH}"/*)
-				mv -f "${RESOLVED_PATH}"/* "$(basename $EXTRACTED_PATH)"
-				rm -Rf "$RESOLVED_PATH"
-			popd
-		fi
+		BO_ensureExtracted EXTRACTED_PATH "$DOWNLOADED_PATH"
 		BO_setResult "$1" "$EXTRACTED_PATH"
 	}
 
