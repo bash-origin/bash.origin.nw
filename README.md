@@ -16,7 +16,7 @@ Usage
 		local __BO_DIR__="$___TMP___"
 
 
-		BO_callPlugin "bash.origin.nw" run "$__BO_DIR__/demo-app"
+		BO_callPlugin "bash.origin.nw@0.1.0" run "$__BO_DIR__/demo-app"
 	}
 	init
 

@@ -9,11 +9,9 @@ function init {
 	function ensureDownloaded {
 		BO_ensureInSystemCache DOWNLOADED_PATH \
 			"dl.nwjs.io" \
-			"0.12.0" \
-			"archive-osx-x64.zip" \
-			"http://dl.nwjs.io/v0.12.0/nwjs-v0.12.0-osx-x64.zip"
-		BO_ensureExtracted EXTRACTED_PATH "$DOWNLOADED_PATH"
-		BO_setResult "$1" "$EXTRACTED_PATH"
+			"0.12.2" \
+			"http://dl.nwjs.io/v0.12.2/nwjs-v0.12.2-osx-x64.zip"
+		BO_setResult "$1" "$DOWNLOADED_PATH"
 	}
 
 	function run {
